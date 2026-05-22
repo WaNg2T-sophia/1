@@ -4,175 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>雯雯和方通结婚倒计时</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:wght@700&display=swap');
-
+        
         body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #fff0f5 0%, #f0f8ff 100%);
             font-family: 'Noto Serif SC', serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: linear-gradient(135deg, #ffe4f0 0%, #f0d0ff 100%);
+            min-height: 100vh;
             overflow: hidden;
             position: relative;
         }
-
-        /* 浪漫背景装饰 */
-        body::before {
-            content: '';
+        
+        .floating-heart {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(173, 216, 230, 0.15) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 1;
+            font-size: 1.5rem;
+            animation: float 15s infinite linear;
+            opacity: 0.6;
         }
-
-        .container {
-            text-align: center;
-            max-width: 720px;
-            padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.92);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            position: relative;
-            z-index: 2;
-            border: 1px solid #ffe4e1;
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
         }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            color: #d6708c;
-            margin: 0 0 20px 0;
-            text-shadow: 0 2px 4px rgba(214, 112, 140, 0.1);
+        
+        .photo-frame {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transition: transform 0.4s;
         }
-
-        .emoji-top {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
+        .photo-frame:hover {
+            transform: scale(1.05);
         }
-
-        .subtitle {
-            font-size: 1.35rem;
-            color: #5a8ab8;           /* 更协调的柔和蓝 */
-            margin: 15px 0 25px 0;
-            font-weight: 500;
+        
+        .countdown-box {
+            background: white;
+            border-radius: 9999px;
+            padding: 20px 40px;
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3);
+            border: 6px solid #ff69b4;
         }
-
-        .date {
-            font-size: 1.25rem;
-            color: #777;
-            margin-bottom: 30px;
-        }
-
-        /* 倒计时 - 主色改为温暖的金粉色，更协调且醒目 */
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-
-        .time-block {
-            background: linear-gradient(145deg, #fff7e6, #ffe4d1);
-            padding: 18px 22px;
-            border-radius: 16px;
-            min-width: 110px;
-            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.25);
-            border: 2px solid #ffd4b3;
-        }
-
-        .time-number {
-            font-size: 2.8rem;
+        
+        .big-number {
+            font-size: 4.5rem;
             font-weight: 700;
-            color: #e88a5e;           /* 温暖醒目的橙粉色 */
             line-height: 1;
-            text-shadow: 0 2px 6px rgba(232, 138, 94, 0.2);
-        }
-
-        .time-label {
-            font-size: 0.95rem;
-            color: #8b6f5e;
-            margin-top: 6px;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-
-        .heart {
-            color: #ff6b81;
-            font-size: 1.8rem;
-            margin: 25px 0;
-        }
-
-        .blessing {
-            font-size: 1.45rem;
-            color: #d6708c;
-            margin: 20px 0;
-            font-weight: 500;
-        }
-
-        .emoji-bottom {
-            font-size: 2.2rem;
-            margin-top: 30px;
-            letter-spacing: 8px;
-        }
-
-        /* 响应式 */
-        @media (max-width: 600px) {
-            .countdown {
-                gap: 15px;
-            }
-            .time-block {
-                min-width: 85px;
-                padding: 14px 16px;
-            }
-            .time-number {
-                font-size: 2.3rem;
-            }
+            background: linear-gradient(to right, #ff1493, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="emoji-top">💒 🎉</div>
-        
-        <h1>雯雯和方通结婚倒计时</h1>
-        
-        <div class="subtitle">距离我们的幸福时刻还有</div>
-        
-        <div class="date">2026年5月26日 凌晨 00:00</div>
-        
-        <div class="countdown" id="countdown">
-            <!-- JS 会动态填充 -->
+<body class="flex items-center justify-center p-6">
+    <div class="max-w-5xl w-full relative">
+        <!-- 漂浮爱心 -->
+        <div class="floating-heart" style="left: 5%; animation-delay: 0s;">💖</div>
+        <div class="floating-heart" style="left: 15%; animation-delay: 3s;">❤️</div>
+        <div class="floating-heart" style="left: 80%; animation-delay: 7s;">💕</div>
+        <div class="floating-heart" style="left: 90%; animation-delay: 12s;">💗</div>
+        <div class="floating-heart" style="left: 25%; animation-delay: 5s;">🌸</div>
+        <div class="floating-heart" style="left: 70%; animation-delay: 9s;">🌷</div>
+
+        <div class="text-center mb-8">
+            <div class="flex justify-center gap-4 mb-4">
+                <span class="text-4xl">🏠</span>
+                <span class="text-5xl">🎉</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-pink-600 tracking-wider">
+                距离雯雯和方通结婚还有
+            </h1>
+            <p class="text-xl text-blue-600 mt-3 font-medium">
+                2026年5月26日 凌晨 00:00
+            </p>
         </div>
-        
-        <div class="heart">❤️</div>
-        
-        <div class="blessing">新婚快乐！白头偕老 ❤️</div>
-        
-        <div class="emoji-bottom">💖 🦄 🎈 🌈 💍 ✨</div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <!-- 左图 -->
+            <div class="photo-frame">
+                <img src="https://via.placeholder.com/600x800?text=雯雯+方通+婚纱照1" 
+                     alt="婚纱照1" class="w-full h-full object-cover">
+            </div>
+
+            <!-- 中间倒计时 -->
+            <div class="text-center">
+                <div id="countdown" class="countdown-box mx-auto">
+                    <div class="flex items-baseline justify-center gap-3">
+                        <span id="days" class="big-number">3</span>
+                        <span class="text-3xl text-pink-500 font-bold">天</span>
+                    </div>
+                    <div id="time" class="text-5xl font-bold text-pink-600 mt-2 tracking-widest">
+                        08:12:05
+                    </div>
+                </div>
+                
+                <div class="mt-10 text-2xl text-pink-600 font-medium">
+                    ❤️ 新婚快乐！白头偕老 ❤️
+                </div>
+            </div>
+
+            <!-- 右图 -->
+            <div class="photo-frame">
+                <img src="https://via.placeholder.com/600x800?text=雯雯+方通+婚纱照2" 
+                     alt="婚纱照2" class="w-full h-full object-cover">
+            </div>
+        </div>
     </div>
 
     <script>
-        // 目标日期：2026-05-26 00:00:00
         const targetDate = new Date('2026-05-26T00:00:00').getTime();
 
         function updateCountdown() {
             const now = new Date().getTime();
-            const distance = targetDate - now;
+            let distance = targetDate - now;
 
             if (distance < 0) {
                 document.getElementById('countdown').innerHTML = `
-                    <div style="font-size:2rem;color:#d6708c;">🎉 我们已经结婚啦！🎉</div>
+                    <div class="text-5xl font-bold text-pink-600">🎉 我们已经结婚啦！🎉</div>
                 `;
                 return;
             }
@@ -182,27 +131,11 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById('countdown').innerHTML = `
-                <div class="time-block">
-                    <div class="time-number">${days}</div>
-                    <div class="time-label">天</div>
-                </div>
-                <div class="time-block">
-                    <div class="time-number">${hours.toString().padStart(2, '0')}</div>
-                    <div class="time-label">小时</div>
-                </div>
-                <div class="time-block">
-                    <div class="time-number">${minutes.toString().padStart(2, '0')}</div>
-                    <div class="time-label">分钟</div>
-                </div>
-                <div class="time-block">
-                    <div class="time-number">${seconds.toString().padStart(2, '0')}</div>
-                    <div class="time-label">秒</div>
-                </div>
-            `;
+            document.getElementById('days').textContent = days;
+            document.getElementById('time').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
 
-        // 每秒更新
         setInterval(updateCountdown, 1000);
         updateCountdown();
     </script>
