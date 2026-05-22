@@ -88,4 +88,146 @@
 
     .emoji {
       font-size: 4rem;
-      animation
+      animation: float 3s infinite ease-in-out;
+    }
+
+    @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+  </style>
+</head>
+<body>
+
+  <canvas id="petals"></canvas>
+
+  <div class="container">
+    <div class="emoji">💒 🎉</div>
+    <h1>距离雯雯和方通结婚还有</h1>
+    <div class="subtitle">2026年5月26日 凌晨00:00</div>
+    
+    <div class="main-content">
+      <div class="photos">
+        <img src="photo1.jpg" alt="婚纱照1" onclick="showModal(this)">
+      </div>
+      
+      <div class="countdown" id="timer">加载中...</div>
+      
+      <div class="photos">
+        <img src="photo2.jpg" alt="婚纱照2" onclick="showModal(this)">
+      </div>
+    </div>
+    
+    <div class="label">❤️ 新婚快乐！白头偕老 ❤️</div>
+    <div class="emoji">💖 🦄 🎈 🌈 💍 ✨</div>
+  </div>
+
+  <div id="modal" onclick="hideModal()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:1000; align-items:center; justify-content:center;">
+    <img id="modalImage" src="" style="max-width:92%; max-height:92%; border-radius:20px;">
+  </div>
+
+  <script>
+    // 倒计时
+    const endTime = new Date('2026-05-26T00:00:00+08:00').getTime();
+    const timerEl = document.getElementById('timer');
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = endTime - now;
+
+      if (distance < 0) {
+        timerEl.innerHTML = "新婚快乐！💒🎊";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      timerEl.innerHTML = `${days}天 ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // 玫瑰+爱心飘落特效
+    const canvas = document.getElementById('petals');
+    const ctx = canvas.getContext('2d');
+    let petals = [];
+    const petalCount = 66;   // ← 已修改为66个
+
+    const emojis = ['🌹', '💖', '❤️', '🌸', '💗'];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    class Petal {
+      constructor() { this.reset(); }
+      
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height - canvas.height;
+        this.size = Math.random() * 22 + 14;
+        this.speed = Math.random() * 2.8 + 1.3;
+        this.rotation = Math.random() * 360;
+        this.rotationSpeed = Math.random() * 5 - 2.5;
+        this.opacity = Math.random() * 0.75 + 0.45;
+        this.swing = Math.random() * 1.8 + 0.9;
+        this.emoji = emojis[Math.floor(Math.random() * emojis.length)];
+      }
+
+      update() {
+        this.y += this.speed;
+        this.x += Math.sin(this.y / 45) * this.swing;
+        this.rotation += this.rotationSpeed;
+
+        if (this.y > canvas.height + 50) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation * Math.PI / 180);
+        ctx.globalAlpha = this.opacity;
+        ctx.font = `${this.size}px Arial`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(this.emoji, 0, 0);
+        ctx.restore();
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      for (let petal of petals) {
+        petal.update();
+        petal.draw();
+      }
+      
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < petalCount; i++) {
+      petals.push(new Petal());
+    }
+    animate();
+
+    // 照片放大功能
+    function showModal(img) {
+      document.getElementById('modalImage').src = img.src;
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    function hideModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
