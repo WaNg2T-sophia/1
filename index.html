@@ -35,9 +35,9 @@
     }
     
     .photos img {
-      width: 240px;
+      width: 260px;
       border-radius: 35px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.25);
       transition: transform 0.4s;
       cursor: pointer;
     }
@@ -75,13 +75,15 @@
     
     <div class="main-content">
       <div class="photos">
-        <img src="https://picsum.photos/id/1015/600/800" alt="婚纱照1" onclick="showModal(this)">
+        <img src="https://raw.githubusercontent.com/WaNg2T-sophia/1/main/photo1.jpg" 
+             alt="婚纱照1" onclick="showModal(this)">
       </div>
       
       <div class="countdown" id="timer">加载中...</div>
       
       <div class="photos">
-        <img src="https://picsum.photos/id/1027/600/800" alt="婚纱照2" onclick="showModal(this)">
+        <img src="https://raw.githubusercontent.com/WaNg2T-sophia/1/main/photo2.jpg" 
+             alt="婚纱照2" onclick="showModal(this)">
       </div>
     </div>
     
@@ -89,8 +91,8 @@
     <div class="emoji">💖 🦄 🎈 🌈 💍 ✨</div>
   </div>
 
-  <div id="modal" onclick="hideModal()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; align-items:center; justify-content:center;">
-    <img id="modalImage" src="" style="max-width:90%; max-height:90%; border-radius:25px; box-shadow:0 20px 40px rgba(0,0,0,0.5);">
+  <div id="modal" onclick="hideModal()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:1000; align-items:center; justify-content:center;">
+    <img id="modalImage" src="" style="max-width:92%; max-height:92%; border-radius:25px;">
   </div>
 
   <script>
@@ -114,7 +116,6 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    // 飘落特效
     const canvas = document.getElementById('petals');
     const ctx = canvas.getContext('2d');
     let petals = [];
@@ -169,7 +170,6 @@
     for (let i = 0; i < petalCount; i++) petals.push(new Petal());
     animate();
 
-    // 照片放大
     function showModal(img) {
       document.getElementById('modalImage').src = img.src;
       document.getElementById('modal').style.display = 'flex';
