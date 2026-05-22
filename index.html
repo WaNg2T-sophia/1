@@ -17,82 +17,51 @@
       position: relative;
     }
 
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
-    }
+    canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
-    .container {
-      position: relative;
-      z-index: 2;
-      padding-top: 40px;
-    }
+    .container { position: relative; z-index: 2; padding-top: 30px; }
+
+    h1 { font-size: 2.8rem; color: #ff4d94; text-shadow: 4px 4px 0 #fff; margin: 10px 0 8px; }
     
-    h1 {
-      font-size: 2.9rem;
-      color: #ff4d94;
-      text-shadow: 4px 4px 0 #fff;
-      margin: 10px 0 8px 0;
-    }
-    
-    .subtitle {
-      font-size: 1.65rem;
-      color: #6b4eff;
-      margin-bottom: 30px;
-    }
+    .subtitle { font-size: 1.6rem; color: #6b4eff; margin-bottom: 20px; }
     
     .main-content {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 45px;
-      margin: 20px 0 40px 0;
+      gap: 40px;
+      margin: 20px 0 30px;
+      flex-wrap: wrap;
     }
     
     .photos img {
-      width: 260px;
+      width: 240px;
       border-radius: 35px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
       transition: transform 0.4s;
       cursor: pointer;
     }
     
-    .photos img:hover {
-      transform: scale(1.06);
-    }
-    
+    .photos img:hover { transform: scale(1.08); }
+
     .countdown {
-      font-size: 4.9rem;
+      font-size: 4.5rem;
       font-weight: bold;
       color: #fff;
-      text-shadow: 8px 8px 0 #c81e6c, -4px -4px 0 #c81e6c;
-      background: rgba(255,255,255,0.45);
+      text-shadow: 6px 6px 0 #c81e6c, -3px -3px 0 #c81e6c;
+      background: rgba(255,255,255,0.5);
       border-radius: 40px;
-      padding: 28px 60px;
-      display: inline-block;
-      box-shadow: 0 15px 0 #ff4d94;
+      padding: 25px 50px;
+      box-shadow: 0 12px 0 #ff4d94;
       animation: bounce 1.8s infinite alternate;
-      min-width: 420px;
-    }
-    
-    .label {
-      font-size: 2.2rem;
-      color: #ff4d94;
-      margin: 20px 0 30px 0;
+      min-width: 380px;
     }
 
-    .emoji {
-      font-size: 4rem;
-      animation: float 3s infinite ease-in-out;
-    }
+    .label { font-size: 2rem; color: #ff4d94; margin: 20px 0; }
+    .emoji { font-size: 3.5rem; animation: float 3s infinite ease-in-out; }
 
-    @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
-    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
   </style>
 </head>
 <body>
@@ -106,13 +75,13 @@
     
     <div class="main-content">
       <div class="photos">
-        <img src="photo1.jpg" alt="婚纱照1" onclick="showModal(this)">
+        <img src="https://picsum.photos/id/1015/600/800" alt="婚纱照1" onclick="showModal(this)">
       </div>
       
       <div class="countdown" id="timer">加载中...</div>
       
       <div class="photos">
-        <img src="photo2.jpg" alt="婚纱照2" onclick="showModal(this)">
+        <img src="https://picsum.photos/id/1027/600/800" alt="婚纱照2" onclick="showModal(this)">
       </div>
     </div>
     
@@ -120,8 +89,8 @@
     <div class="emoji">💖 🦄 🎈 🌈 💍 ✨</div>
   </div>
 
-  <div id="modal" onclick="hideModal()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:1000; align-items:center; justify-content:center;">
-    <img id="modalImage" src="" style="max-width:92%; max-height:92%; border-radius:20px;">
+  <div id="modal" onclick="hideModal()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; align-items:center; justify-content:center;">
+    <img id="modalImage" src="" style="max-width:90%; max-height:90%; border-radius:25px; box-shadow:0 20px 40px rgba(0,0,0,0.5);">
   </div>
 
   <script>
@@ -131,28 +100,25 @@
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = endTime - now;
-
       if (distance < 0) {
         timerEl.innerHTML = "新婚快乐！💒🎊";
         return;
       }
-
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      timerEl.innerHTML = `${days}天 ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      timerEl.innerHTML = `${days}天 ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
     }
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
+    // 飘落特效
     const canvas = document.getElementById('petals');
     const ctx = canvas.getContext('2d');
     let petals = [];
     const petalCount = 66;
-
     const emojis = ['🌹', '💖', '❤️', '🌸', '💗'];
 
     function resizeCanvas() {
@@ -162,7 +128,6 @@
 
     class Petal {
       constructor() { this.reset(); }
-      
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height - canvas.height;
@@ -174,14 +139,12 @@
         this.swing = Math.random() * 1.8 + 0.9;
         this.emoji = emojis[Math.floor(Math.random() * emojis.length)];
       }
-
       update() {
         this.y += this.speed;
         this.x += Math.sin(this.y / 45) * this.swing;
         this.rotation += this.rotationSpeed;
         if (this.y > canvas.height + 50) this.reset();
       }
-
       draw() {
         ctx.save();
         ctx.translate(this.x, this.y);
@@ -197,26 +160,20 @@
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let petal of petals) {
-        petal.update();
-        petal.draw();
-      }
+      for (let p of petals) { p.update(); p.draw(); }
       requestAnimationFrame(animate);
     }
 
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
-
-    for (let i = 0; i < petalCount; i++) {
-      petals.push(new Petal());
-    }
+    for (let i = 0; i < petalCount; i++) petals.push(new Petal());
     animate();
 
+    // 照片放大
     function showModal(img) {
       document.getElementById('modalImage').src = img.src;
       document.getElementById('modal').style.display = 'flex';
     }
-
     function hideModal() {
       document.getElementById('modal').style.display = 'none';
     }
