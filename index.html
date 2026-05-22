@@ -1,143 +1,91 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>雯雯和方通结婚倒计时</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:wght@700&display=swap');
-        
-        body {
-            font-family: 'Noto Serif SC', serif;
-            background: linear-gradient(135deg, #ffe4f0 0%, #f0d0ff 100%);
-            min-height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .floating-heart {
-            position: absolute;
-            font-size: 1.5rem;
-            animation: float 15s infinite linear;
-            opacity: 0.6;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); }
-            100% { transform: translateY(-100vh) rotate(360deg); }
-        }
-        
-        .photo-frame {
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            transition: transform 0.4s;
-        }
-        .photo-frame:hover {
-            transform: scale(1.05);
-        }
-        
-        .countdown-box {
-            background: white;
-            border-radius: 9999px;
-            padding: 20px 40px;
-            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3);
-            border: 6px solid #ff69b4;
-        }
-        
-        .big-number {
-            font-size: 4.5rem;
-            font-weight: 700;
-            line-height: 1;
-            background: linear-gradient(to right, #ff1493, #ff69b4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
-</head>
-<body class="flex items-center justify-center p-6">
-    <div class="max-w-5xl w-full relative">
-        <!-- 漂浮爱心 -->
-        <div class="floating-heart" style="left: 5%; animation-delay: 0s;">💖</div>
-        <div class="floating-heart" style="left: 15%; animation-delay: 3s;">❤️</div>
-        <div class="floating-heart" style="left: 80%; animation-delay: 7s;">💕</div>
-        <div class="floating-heart" style="left: 90%; animation-delay: 12s;">💗</div>
-        <div class="floating-heart" style="left: 25%; animation-delay: 5s;">🌸</div>
-        <div class="floating-heart" style="left: 70%; animation-delay: 9s;">🌷</div>
+  <meta charset="UTF-8">
+  <title>雯雯和方通结婚倒计时</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+    
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffb6c1, #ffe4e1, #fff0f5, #e0b0ff);
+      font-family: 'Comic Neue', cursive;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
 
-        <div class="text-center mb-8">
-            <div class="flex justify-center gap-4 mb-4">
-                <span class="text-4xl">🏠</span>
-                <span class="text-5xl">🎉</span>
-            </div>
-            <h1 class="text-4xl md:text-5xl font-bold text-pink-600 tracking-wider">
-                距离雯雯和方通结婚还有
-            </h1>
-            <p class="text-xl text-blue-600 mt-3 font-medium">
-                2026年5月26日 凌晨 00:00
-            </p>
-        </div>
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-            <!-- 左图 -->
-            <div class="photo-frame">
-                <img src="https://via.placeholder.com/600x800?text=雯雯+方通+婚纱照1" 
-                     alt="婚纱照1" class="w-full h-full object-cover">
-            </div>
+    .container {
+      position: relative;
+      z-index: 2;
+      padding-top: 40px;
+    }
+    
+    h1 {
+      font-size: 2.9rem;
+      color: #ff4d94;
+      text-shadow: 4px 4px 0 #fff;
+      margin: 10px 0 8px 0;
+    }
+    
+    .subtitle {
+      font-size: 1.65rem;
+      color: #6b4eff;
+      margin-bottom: 30px;
+    }
+    
+    .main-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 45px;
+      margin: 20px 0 40px 0;
+    }
+    
+    .photos img {
+      width: 260px;
+      border-radius: 35px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+      transition: transform 0.4s;
+      cursor: pointer;
+    }
+    
+    .photos img:hover {
+      transform: scale(1.06);
+    }
+    
+    .countdown {
+      font-size: 4.9rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 8px 8px 0 #c81e6c, -4px -4px 0 #c81e6c;
+      background: rgba(255,255,255,0.45);
+      border-radius: 40px;
+      padding: 28px 60px;
+      display: inline-block;
+      box-shadow: 0 15px 0 #ff4d94;
+      animation: bounce 1.8s infinite alternate;
+      min-width: 420px;
+    }
+    
+    .label {
+      font-size: 2.2rem;
+      color: #ff4d94;
+      margin: 20px 0 30px 0;
+    }
 
-            <!-- 中间倒计时 -->
-            <div class="text-center">
-                <div id="countdown" class="countdown-box mx-auto">
-                    <div class="flex items-baseline justify-center gap-3">
-                        <span id="days" class="big-number">3</span>
-                        <span class="text-3xl text-pink-500 font-bold">天</span>
-                    </div>
-                    <div id="time" class="text-5xl font-bold text-pink-600 mt-2 tracking-widest">
-                        08:12:05
-                    </div>
-                </div>
-                
-                <div class="mt-10 text-2xl text-pink-600 font-medium">
-                    ❤️ 新婚快乐！白头偕老 ❤️
-                </div>
-            </div>
-
-            <!-- 右图 -->
-            <div class="photo-frame">
-                <img src="https://via.placeholder.com/600x800?text=雯雯+方通+婚纱照2" 
-                     alt="婚纱照2" class="w-full h-full object-cover">
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const targetDate = new Date('2026-05-26T00:00:00').getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            let distance = targetDate - now;
-
-            if (distance < 0) {
-                document.getElementById('countdown').innerHTML = `
-                    <div class="text-5xl font-bold text-pink-600">🎉 我们已经结婚啦！🎉</div>
-                `;
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('days').textContent = days;
-            document.getElementById('time').textContent = 
-                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-    </script>
-</body>
-</html>
+    .emoji {
+      font-size: 4rem;
+      animation
