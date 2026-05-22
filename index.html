@@ -2,182 +2,206 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>雯雯和方通结婚倒计时</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>雯雯 & 方通 | 婚礼倒计时</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
-    
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+
     body {
       margin: 0;
       height: 100vh;
-      background: linear-gradient(135deg, #ffb6c1, #ffe4e1, #fff0f5, #e0b0ff);
-      font-family: 'Comic Neue', cursive;
+      background: linear-gradient(135deg, #2b1d3b, #4a2c5a, #1e1a2e);
+      color: #f5e8c7;
+      font-family: 'Noto Serif SC', serif;
       text-align: center;
       overflow: hidden;
       position: relative;
     }
 
-    canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-
-    .container { position: relative; z-index: 2; padding-top: 30px; }
-
-    h1 { font-size: 2.8rem; color: #ff4d94; text-shadow: 4px 4px 0 #fff; margin: 10px 0 8px; }
-    
-    .subtitle { font-size: 1.6rem; color: #6b4eff; margin-bottom: 20px; }
-    
-    .main-content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 40px;
-      margin: 20px 0 30px;
-      flex-wrap: wrap;
+    canvas { 
+      position: absolute; 
+      top: 0; left: 0; 
+      width: 100%; height: 100%; 
+      z-index: 1; 
+      pointer-events: none; 
+      opacity: 0.7;
     }
-    
-    .photos img {
-      width: 260px;
-      border-radius: 35px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.25);
-      transition: transform 0.4s;
-      cursor: pointer;
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 620px;
+      margin: 40px auto;
+      padding: 40px 30px;
+      background: rgba(20, 15, 35, 0.85);
+      border-radius: 60px;
+      border: 3px solid #d4af37;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
     }
-    
-    .photos img:hover { transform: scale(1.08); }
+
+    .title {
+      font-size: 2.8rem;
+      color: #f5d76e;
+      text-shadow: 0 0 20px rgba(245, 215, 110, 0.6);
+      margin: 10px 0;
+    }
+
+    .names {
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: #f5e8c7;
+      margin: 15px 0 8px;
+      letter-spacing: 4px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      background: rgba(212, 175, 55, 0.2);
+      display: inline-block;
+      padding: 8px 25px;
+      border-radius: 30px;
+      margin-bottom: 30px;
+    }
 
     .countdown {
-      font-size: 4.5rem;
-      font-weight: bold;
-      color: #fff;
-      text-shadow: 6px 6px 0 #c81e6c, -3px -3px 0 #c81e6c;
-      background: rgba(255,255,255,0.5);
-      border-radius: 40px;
-      padding: 25px 50px;
-      box-shadow: 0 12px 0 #ff4d94;
-      animation: bounce 1.8s infinite alternate;
-      min-width: 380px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+      flex-wrap: wrap;
     }
 
-    .label { font-size: 2rem; color: #ff4d94; margin: 20px 0; }
-    .emoji { font-size: 3.5rem; animation: float 3s infinite ease-in-out; }
+    .time-box {
+      background: rgba(0,0,0,0.4);
+      border: 2px solid #d4af37;
+      border-radius: 25px;
+      padding: 15px 20px;
+      min-width: 110px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
 
-    @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
-    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    .number {
+      font-size: 3.8rem;
+      font-weight: bold;
+      color: #f5e8c7;
+      line-height: 1;
+    }
+
+    .unit {
+      font-size: 1.1rem;
+      color: #d4af37;
+      margin-top: 5px;
+    }
+
+    .date {
+      font-size: 1.1rem;
+      margin: 20px 0;
+      opacity: 0.9;
+    }
+
+    .blessing {
+      font-size: 1.6rem;
+      color: #f5d76e;
+      margin: 25px 0 10px;
+      line-height: 1.6;
+    }
+
+    .heart {
+      color: #ff6b9d;
+      font-size: 1.4rem;
+    }
   </style>
 </head>
 <body>
-
-  <canvas id="petals"></canvas>
-
+  <canvas id="canvas"></canvas>
+  
   <div class="container">
-    <div class="emoji">💒 🎉</div>
-    <h1>距离雯雯和方通结婚还有</h1>
-    <div class="subtitle">2026年5月26日 凌晨00:00</div>
-    
-    <div class="main-content">
-      <div class="photos">
-        <img src="https://raw.githubusercontent.com/WaNg2T-sophia/1/main/photo1.jpg" 
-             alt="婚纱照1" onclick="showModal(this)">
-      </div>
-      
-      <div class="countdown" id="timer">加载中...</div>
-      
-      <div class="photos">
-        <img src="https://raw.githubusercontent.com/WaNg2T-sophia/1/main/photo2.jpg" 
-             alt="婚纱照2" onclick="showModal(this)">
-      </div>
-    </div>
-    
-    <div class="label">❤️ 新婚快乐！白头偕老 ❤️</div>
-    <div class="emoji">💖 🦄 🎈 🌈 💍 ✨</div>
-  </div>
+    <div>♦ 囍 ♦</div>
+    <div class="names">雯雯 & 方通</div>
+    <div class="subtitle">距离雯雯和方通结婚还有</div>
 
-  <div id="modal" onclick="hideModal()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:1000; align-items:center; justify-content:center;">
-    <img id="modalImage" src="" style="max-width:92%; max-height:92%; border-radius:25px;">
+    <div class="countdown" id="countdown">
+      <!-- JS 会自动生成 -->
+    </div>
+
+    <div class="date">
+      📅 2026年5月26日 凌晨 00:00
+    </div>
+
+    <div class="blessing">
+      新婚快乐 · 白头偕老<br>
+      <span class="heart">♥</span> 愿岁月温柔，情深共白首 <span class="heart">♥</span>
+    </div>
   </div>
 
   <script>
-    const endTime = new Date('2026-05-26T00:00:00+08:00').getTime();
-    const timerEl = document.getElementById('timer');
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = endTime - now;
-      if (distance < 0) {
-        timerEl.innerHTML = "新婚快乐！💒🎊";
-        return;
-      }
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      timerEl.innerHTML = `${days}天 ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-    // 飘落特效 - 已调慢速度
-    const canvas = document.getElementById('petals');
+    // 花瓣/光点效果
+    const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    let petals = [];
-    const petalCount = 66;
-    const emojis = ['🌹', '💖', '❤️', '🌸', '💗'];
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    class Petal {
-      constructor() { this.reset(); }
-      reset() {
+    const particles = [];
+    class Particle {
+      constructor() {
         this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height - canvas.height;
-        this.size = Math.random() * 22 + 14;
-        this.speed = Math.random() * 1.6 + 0.8;     // ← 这里调慢了（原来是 2.8 + 1.3）
-        this.rotation = Math.random() * 360;
-        this.rotationSpeed = Math.random() * 4 - 2;
-        this.opacity = Math.random() * 0.75 + 0.45;
-        this.swing = Math.random() * 1.6 + 0.8;     // 左右摆动也稍微柔和
-        this.emoji = emojis[Math.floor(Math.random() * emojis.length)];
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 6 + 3;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.8 + 0.4;
+        this.opacity = Math.random() * 0.6 + 0.4;
       }
       update() {
-        this.y += this.speed;
-        this.x += Math.sin(this.y / 50) * this.swing;   // 摆动频率也调慢
-        this.rotation += this.rotationSpeed;
-        if (this.y > canvas.height + 50) this.reset();
+        this.y += this.speedY;
+        this.x += this.speedX;
+        if (this.y > canvas.height) this.y = 0;
       }
       draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.rotation * Math.PI / 180);
-        ctx.globalAlpha = this.opacity;
-        ctx.font = `${this.size}px Arial`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(this.emoji, 0, 0);
-        ctx.restore();
+        ctx.fillStyle = `rgba(245, 232, 199, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
       }
     }
+
+    for (let i = 0; i < 80; i++) particles.push(new Particle());
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let p of petals) { p.update(); p.draw(); }
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
       requestAnimationFrame(animate);
     }
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    for (let i = 0; i < petalCount; i++) petals.push(new Petal());
     animate();
 
-    function showModal(img) {
-      document.getElementById('modalImage').src = img.src;
-      document.getElementById('modal').style.display = 'flex';
+    // 倒计时
+    function updateCountdown() {
+      const weddingDate = new Date('2026-05-26T00:00:00').getTime();
+      const now = new Date().getTime();
+      const diff = weddingDate - now;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('countdown').innerHTML = `
+        <div class="time-box"><div class="number">${days.toString().padStart(2,'0')}</div><div class="unit">天</div></div>
+        <div class="time-box"><div class="number">${hours.toString().padStart(2,'0')}</div><div class="unit">时</div></div>
+        <div class="time-box"><div class="number">${minutes.toString().padStart(2,'0')}</div><div class="unit">分</div></div>
+        <div class="time-box"><div class="number">${seconds.toString().padStart(2,'0')}</div><div class="unit">秒</div></div>
+      `;
     }
-    function hideModal() {
-      document.getElementById('modal').style.display = 'none';
-    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
   </script>
 </body>
 </html>
